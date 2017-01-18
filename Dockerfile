@@ -17,10 +17,15 @@ RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php5/fp
 
 ADD http://forge.sigb.net/redmine/attachments/download/1783/pmb5.0.RC.zip /var/www/html/
 
-RUN cd /var/www/html/ ; unzip pmb5.0.RC.zip ; rm pmb5.0.RC.zip ; chown -R www-data:www-data .
+RUN cd /var/www/html/ ; unzip pmb5.0.RC.zip ; rm pmb5.0.RC.zip ; \
+    mkdir /etc/pmb ; mv /var/www/html/pmb/includes/db_param.inc.php /etc/pmb/ ; \
+    ln -s /etc/pmb/db_param.inc.php /var/www/html/pmb/includes/db_param.inc.php ; \
+    chown -R www-data:www-data . ; chown www-data:www-data /etc/pmb/db_param.inc.php
 
 ADD entrypoint.sh /usr/local/bin/
 
 EXPOSE 80
+
+VOLUME ["/var/lib/mysql","/etc/pmb"]
 
 CMD ["/usr/local/bin/entrypoint.sh"]
