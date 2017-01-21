@@ -10,7 +10,7 @@ function initialiser_parametres {
 	mkdir /etc/pmb
 	touch /etc/pmb/db_param.inc.php
 	chown www-data:www-data /etc/pmb/db_param.inc.php
-	ln -s /etc/pmb/db_param.inc.php /var/www/html/pmb/includes/db_param.inc.php)
+	ln -s /etc/pmb/db_param.inc.php /var/www/html/pmb/includes/db_param.inc.php
 }
 
 ls /var/www/html/pmb/includes/db_param.inc.php || initialiser_parametres
