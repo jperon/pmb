@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function initialiser_db {
+	service mysql stop
 	mysql_install_db
 	service mysql start
 	echo "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin'; GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;" | mysql -uroot
@@ -14,6 +15,7 @@ function initialiser_parametres {
 }
 
 ls /var/www/html/pmb/includes/db_param.inc.php || initialiser_parametres
-service mysql start || initialiser_db
+service mysql start
+echo '' | mysql -uadmin -padmin || initialiser_db
 service php5-fpm start
 nginx -g 'daemon off;'
