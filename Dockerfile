@@ -15,9 +15,9 @@ RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php5/fp
 
 ADD index.html /var/www/html/
 
-ADD http://forge.sigb.net/redmine/attachments/download/1783/pmb5.0.RC.zip /var/www/html/
+ADD http://forge.sigb.net/redmine/attachments/download/2019/pmb5.0.RC1.zip /var/www/html/
 
-RUN cd /var/www/html/ ; unzip pmb5.0.RC.zip ; rm pmb5.0.RC.zip ; chown -R www-data:www-data .
+RUN cd /var/www/html/ ; unzip pmb5.0.RC1.zip ; rm pmb5.0.RC1.zip ; chown -R www-data:www-data .
 
 ADD entrypoint.sh /usr/local/bin/
 
