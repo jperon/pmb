@@ -1,20 +1,20 @@
-FROM debian:jessie
+FROM debian
 
 ENV DEBIAN_FRONTEND noninteractive
 
 ADD http://ftp.indexdata.dk/debian/indexdata.asc /root/
 
-RUN echo deb http://ftp.indexdata.dk/debian jessie main >> /etc/apt/sources.list; \
+RUN echo deb http://ftp.indexdata.dk/debian stable main >> /etc/apt/sources.list; \
     apt-key add /root/indexdata.asc ; apt-get -y update ; \
     apt-get -y install nginx \
-    php5-fpm php5-yaz php5-xsl php5-mysql php5-cgi php5-gd php5-curl \
+    php7.0-fpm php7.0-yaz php7.0-xsl php7.0-mysql php7.0-cgi php7.0-gd php7.0-curl \
     mariadb-server unzip
 
-RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php5/fpm/php.ini ; \
-    sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php5/fpm/php.ini ; \
+RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php/7.0/fpm/php.ini ; \
+    sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php/7.0/fpm/php.ini ; \
     sed -i s/'max_allowed_packet\t= 16M'/'max_allowed_packet\t= 1G'/ /etc/mysql/my.cnf ; \
     sed -i s/'index.nginx-debian.html'/'index.php'/ /etc/nginx/sites-available/default ; \
-    sed -i s/'server_name _;'/'server_name _;\n\n\tlocation ~ \\.php$ {\n\t\tinclude snippets\/fastcgi-php.conf;\n\t\tfastcgi_pass unix:\/var\/run\/php5-fpm.sock;\n\t}'/ /etc/nginx/sites-available/default
+    sed -i s/'server_name _;'/'server_name _;\n\n\tlocation ~ \\.php$ {\n\t\tinclude snippets\/fastcgi-php.conf;\n\t\tfastcgi_pass unix:\/var\/run\/php7.0-fpm.sock;\n\t}'/ /etc/nginx/sites-available/default
 
 ADD index.html /var/www/html/
 
