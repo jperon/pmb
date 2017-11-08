@@ -15,7 +15,7 @@ RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php/7.0
     sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php/7.0/fpm/php.ini ; \
     sed -i s/'max_allowed_packet\t= 16M'/'max_allowed_packet\t= 1G'/ /etc/mysql/my.cnf ; \
     sed -i s/'index.nginx-debian.html'/'index.php'/ /etc/nginx/sites-available/default ; \
-    sed -i s/'server_name _;'/'server_name _;\n\n\tlocation ~ \\.php$ {\n\t\tinclude snippets\/fastcgi-php.conf;\n\t\tfastcgi_pass unix:\/var\/run\/php7.0-fpm.sock;\n\t}'/ /etc/nginx/sites-available/default
+    sed -i s/'server_name _;'/'server_name _;\n\n\tlocation ~ \\.php$ {\n\t\tinclude snippets\/fastcgi-php.conf;\n\t\tfastcgi_pass unix:\/var\/run\/php\/php7.0-fpm.sock;\n\t}'/ /etc/nginx/sites-available/default
 
 ADD index.html /var/www/html/
 
