@@ -2,10 +2,10 @@ FROM debian
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ADD http://ftp.indexdata.dk/debian/indexdata.asc /root/
+ADD http://ftp.indexdata.dk/debian/indexdata2.asc /root/
 
 RUN echo deb http://ftp.indexdata.dk/debian stretch main >> /etc/apt/sources.list; \
-    apt-key add /root/indexdata.asc ; apt-get -y update ; \
+    apt-key add /root/indexdata2.asc ; apt-get -y update ; \
     apt-get -y install nginx \
     php7.0-fpm php7.0-yaz php7.0-xsl php7.0-mysql php7.0-cgi php7.0-gd php7.0-curl \
     mariadb-server unzip
