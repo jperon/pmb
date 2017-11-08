@@ -4,8 +4,11 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ADD http://ftp.indexdata.dk/debian/indexdata.asc /root/
 
-RUN echo deb http://ftp.indexdata.dk/debian jessie main >> /etc/apt/sources.list ; apt-key add /root/indexdata.asc ; apt-get -y update ; \
-    apt-get -y install nginx php5-fpm php5-yaz php5-xsl php5-mysql php5-cgi php5-gd mariadb-server unzip
+RUN echo deb http://ftp.indexdata.dk/debian jessie main >> /etc/apt/sources.list; \
+    apt-key add /root/indexdata.asc ; apt-get -y update ; \
+    apt-get -y install nginx \
+    php5-fpm php5-yaz php5-xsl php5-mysql php5-cgi php5-gd php5-curl \
+    mariadb-server unzip
 
 RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php5/fpm/php.ini ; \
     sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php5/fpm/php.ini ; \
@@ -15,9 +18,9 @@ RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php5/fp
 
 ADD index.html /var/www/html/
 
-ADD http://forge.sigb.net/redmine/attachments/download/2019/pmb5.0.RC1.zip /var/www/html/
+ADD http://forge.sigb.net/redmine/attachments/download/2129/pmb5.0.2.zip /var/www/html/
 
-RUN cd /var/www/html/ ; unzip pmb5.0.RC1.zip ; rm pmb5.0.RC1.zip ; chown -R www-data:www-data .
+RUN cd /var/www/html/ ; unzip pmb5.0.2.zip ; rm pmb5.0.2.zip ; chown -R www-data:www-data .
 
 ADD entrypoint.sh /usr/local/bin/
 
