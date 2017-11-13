@@ -22,7 +22,7 @@ RUN cd /var/www/html/ ; \
     wget http://forge.sigb.net/redmine/attachments/download/$(\
          wget -O- http://forge.sigb.net/redmine/projects/pmb/files \
              | grep attachments/download | grep -v nightly | cut -d'/' -f 5- \
-             | sort -h | tail -1 | cut -d'"' -f1
+             | sort -h | tail -1 | cut -d'"' -f1 \
     ) ; \
     unzip pmb*.zip ; rm pmb*.zip ; chown -R www-data:www-data .
 
