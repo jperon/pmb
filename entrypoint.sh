@@ -16,6 +16,7 @@ function initialiser_parametres {
 }
 
 ls /var/www/html/pmb/includes/db_param.inc.php || initialiser_parametres
+chown -R mysql:mysql /var/lib/mysql
 service mysql start
 echo '' | mysql -uadmin -padmin || initialiser_db
 service php7.0-fpm start
