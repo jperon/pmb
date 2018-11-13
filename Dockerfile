@@ -19,9 +19,13 @@ RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php/7.0
 
 ADD index.html /var/www/html/
 
-ADD http://forge.sigb.net/redmine/attachments/download/2129/pmb5.0.2.zip /var/www/html/
-
-RUN cd /var/www/html/ ; unzip pmb5.0.2.zip ; rm pmb5.0.2.zip ; chown -R www-data:www-data .
+RUN cd /var/www/html/ ; \
+    wget http://forge.sigb.net/redmine/attachments/download/$(\
+         wget -O- http://forge.sigb.net/redmine/projects/pmb/files \
+             | grep attachments/download | grep -v nightly | cut -d'/' -f 5- \
+             | sort -h | tail -1 | cut -d'"' -f1 \
+    ) ; \
+    unzip pmb*.zip ; rm pmb*.zip ; chown -R www-data:www-data .
 
 ADD entrypoint.sh /usr/local/bin/
 
