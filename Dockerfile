@@ -9,7 +9,7 @@ RUN apt-get -y update ; apt-get -y install gnupg ; \
     apt-key add /root/indexdata2.asc ; apt-get -y update ; \
     apt-get -y --allow-unauthenticated install nginx \
     php7.0-fpm php7.0-yaz php7.0-xsl php7.0-mysql php7.0-cgi php7.0-gd php7.0-curl \
-    mariadb-server unzip
+    mariadb-server unzip wget
 
 RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php/7.0/fpm/php.ini ; \
     sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php/7.0/fpm/php.ini ; \
