@@ -9,7 +9,7 @@ RUN apt-get -y update ; apt-get -y install gnupg ; \
     apt-key add /root/indexdata2.asc ; apt-get -y update ; \
     apt-get -y --allow-unauthenticated install nginx \
     php7.0-fpm php7.0-yaz php7.0-xsl php7.0-mysql php7.0-cgi php7.0-gd php7.0-curl \
-    mariadb-server unzip wget
+    mariadb-server wget
 
 RUN sed -i s/'max_execution_time = 30'/'max_execution_time = 3600'/ /etc/php/7.0/fpm/php.ini ; \
     sed -i s/'upload_max_filesize = 2M'/'upload_max_filesize = 1G'/ /etc/php/7.0/fpm/php.ini ; \
@@ -25,7 +25,7 @@ RUN cd /var/www/html/ ; \
              | grep attachments/download | cut -d'/' -f 5- \
              | sort -h | tail -1 | cut -d'"' -f1 \
     ) ; \
-    unzip pmb*.zip ; rm pmb*.zip ; chown -R www-data:www-data .
+    tar xaf pmb*.tgz ; rm pmb*.tgz ; chown -R www-data:www-data .
 
 ADD entrypoint.sh /usr/local/bin/
 
