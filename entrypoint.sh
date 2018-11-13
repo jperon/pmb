@@ -18,5 +18,5 @@ function initialiser_parametres {
 ls /var/www/html/pmb/includes/db_param.inc.php || initialiser_parametres
 service mysql start
 echo '' | mysql -uadmin -padmin || initialiser_db
-service php5-fpm start
+service php7.0-fpm start
 nginx -g 'daemon off;'
