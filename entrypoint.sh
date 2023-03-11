@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function initialiser_db {
-	service mysql stop
-	mysql_install_db
-	service mysql start --character-set-server=utf8 --collation-server=utf8_unicode_ci --sql_mode=NO_AUTO_CREATE_USER
+	service mariadb stop
+	mysql_install_db --user=mysql
+	service mariadb start --character-set-server=utf8 --collation-server=utf8_unicode_ci --sql_mode=NO_AUTO_CREATE_USER --key_buffer_size=1000000000 --join_buffer_size=4000000
 	echo "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin'; GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;" | mysql -uroot
 }
 
@@ -16,7 +16,7 @@ function initialiser_parametres {
 }
 
 ls /var/www/html/pmb/includes/db_param.inc.php || initialiser_parametres
-service mysql start --character-set-server=utf8 --collation-server=utf8_unicode_ci --sql_mode=NO_AUTO_CREATE_USER
+service mariadb start --character-set-server=utf8 --collation-server=utf8_unicode_ci --key_buffer_size=1000000000 --join_buffer_size=4000000 --sql_mode=NO_AUTO_CREATE_USER
 echo '' | mysql -uadmin -padmin || initialiser_db
-service php7.3-fpm start
+service php7.4-fpm start
 nginx -g 'daemon off;'

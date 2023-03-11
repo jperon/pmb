@@ -1,4 +1,5 @@
 server {
+	include snippets/snakeoil.conf;
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
