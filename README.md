@@ -1,6 +1,10 @@
 # pmb
 
-Dockerfile pour installer [PMB](http://www.sigb.net/)
+Dockerfile pour une installation facile et sommaire de [PMB](http://www.sigb.net/)
+
+# NOTA BENE
+
+Pour une installation plus propre de PMB, référez-vous à [ce dépôt](https://github.com/mqu/pmb-ils/).
 
 
 # Lancement
